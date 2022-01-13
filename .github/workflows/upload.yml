@@ -1,18 +1,18 @@
-name: validate
+name: upload
 on: [push, pull_request]
 
 jobs:
-  validate:
+  upload:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
           python-version: '3.8'
-      - name: Install requests
-        run: pip install requests
+      - name: Install dependencies
+        run: pip install requests Jinja2
       - name: Validate workflow definition
         env:
           DAFNI_SERVICE_ACCOUNT_USERNAME: ${{ secrets.DAFNI_SERVICE_ACCOUNT_USERNAME }}
           DAFNI_SERVICE_ACCOUNT_PASSWORD: ${{ secrets.DAFNI_SERVICE_ACCOUNT_PASSWORD }}
-        run: python validate.py
+        run: python upload.py

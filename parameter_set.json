@@ -1,0 +1,286 @@
+{
+    "kind": "P",
+    "api_version": "v1",
+    "spec": [
+        {
+            "step": "clip",
+            "dataslots": [
+                {
+                    "name": "Input data files",
+                    "path": "inputs/clip",
+                    "datasets": [
+                        "02a8f068-ef9d-4190-bfc2-74663dc454d3",
+                        "86b37b30-1dc0-4951-8885-130ae274ca5c",
+                        "6f08c735-b91b-4c35-9e25-11786fb9008b",
+                        "826d01ea-c4a4-41c1-9cd7-d6144686edce",
+                        "a3c50562-da29-4a17-b934-062cb01416b6",
+                        "aa0aa5e9-c0c8-4f63-8f2e-f001730fc0c2",
+                        "9a142571-5b9c-4a69-bfc1-83354ff861e6",
+                        "f1eeebfd-af89-4964-aa64-24a2954ee242"
+                    ]
+                },
+                {
+                    "name": "Clip extent file",
+                    "path": "inputs/clip_extent",
+                    "datasets": []
+                }
+            ],
+            "parameters": [
+                {
+                    "name": "data_type",
+                    "value": "raster"
+                },
+                {
+                    "name": "output_file",
+                    "value": "None"
+                },
+                {
+                    "name": "extent",
+                    "value": "218000,600000,313000,691000"
+                },
+                {
+                    "name": "save_logfile",
+                    "value": "True"
+                }
+            ]
+        },
+        {
+            "step": "extract-population",
+            "dataslots": [
+                {
+                    "name": "SSP",
+                    "path": "inputs/ssp",
+                    "datasets": [
+                        "d13b3f41-87ef-4a38-a414-02708642f2be"
+                    ]
+                },
+                {
+                    "name": "Regions",
+                    "path": "inputs/regions",
+                    "datasets": [
+                        "d0776cf1-e9d0-4bb7-b454-3eae8ee6a9ec"
+                    ]
+                }
+            ],
+            "parameters": [
+                {
+                    "name": "YEAR",
+                    "value": {{ year }}
+                },
+                {
+                    "name": "SSP",
+                    "value": {{ ssp }}
+                },
+                {
+                    "name": "REGION_FIELD",
+                    "value": "code"
+                }
+            ]
+        },
+        {
+            "step": "move-files",
+            "parameters": [
+                {
+                    "name": "FILE_PATHS",
+                    "value": "population.csv"
+                },
+                {
+                    "name": "FOLDER_NAME",
+                    "value": "population"
+                }
+            ],
+            "dataslots": []
+        },
+        {
+            "step": "rasterise-zones",
+            "dataslots": [
+                {
+                    "name": "Zones",
+                    "path": "inputs/zones",
+                    "datasets": [
+                        "d0776cf1-e9d0-4bb7-b454-3eae8ee6a9ec"
+                    ]
+                },
+                {
+                    "name": "Population",
+                    "path": "inputs/population",
+                    "datasets": [
+                        "0c28f58a-5b21-427f-b5e8-9ac5cb0c2768"
+                    ]
+                }
+            ],
+            "parameters": [
+                {
+                    "name": "SORT_FIELD",
+                    "value": "code"
+                }
+            ]
+        },
+        {
+            "step": "udm-setup",
+            "dataslots": [],
+            "parameters": [
+                {
+                    "name": "constraints",
+                    "value": "greenbelt:25;greenspace:25;sssi:25;water:25"
+                },
+                {
+                    "name": "current_development",
+                    "value": "developed:25"
+                },
+                {
+                    "name": "attractors",
+                    "value": "roads_proximity_100m:3:1;rail_proximity:3:1;noroads:4:1"
+                }
+            ]
+        },
+        {
+            "step": "udm",
+            "dataslots": [
+                {
+                    "name": "Input data",
+                    "path": "inputs",
+                    "datasets": []
+                }
+            ],
+            "parameters": [
+                {
+                    "name": "TITLE",
+                    "value": "OpenUDM output"
+                }
+            ]
+        },
+        {
+            "step": "citycat",
+            "dataslots": [
+                {
+                    "name": "Digital Elevation Model",
+                    "path": "inputs/dem",
+                    "datasets": [
+                        "859e810c-4597-44b6-8d92-a9f00e45dcbd"
+                    ]
+                },
+                {
+                    "name": "Future Drainage",
+                    "path": "inputs/future-drainage",
+                    "datasets": [
+                        "0f7733d1-f6f3-44c4-b27e-9eecf6773e34"
+                    ]
+                },
+                {
+                    "name": "Buildings",
+                    "path": "inputs/buildings",
+                    "datasets": [
+                        "7f0344d8-079c-41ce-828e-9caadc431628"
+                    ]
+                },
+                {
+                    "name": "Green areas",
+                    "path": "inputs/green_areas",
+                    "datasets": [
+                        "22601187-67c5-4cbd-927f-0d5d38fe9dbe"
+                    ]
+                }
+            ],
+            "parameters": [
+                {
+                    "name": "NAME",
+                    "value": "SSP3 Flood"
+                },
+                {
+                    "name": "RAINFALL_MODE",
+                    "value": "return_period"
+                },
+                {
+                    "name": "RETURN_PERIOD",
+                    "value": "100"
+                },
+                {
+                    "name": "TOTAL_DEPTH",
+                    "value": 40
+                },
+                {
+                    "name": "DURATION",
+                    "value": "1"
+                },
+                {
+                    "name": "POST_EVENT_DURATION",
+                    "value": 0
+                },
+                {
+                    "name": "SIZE",
+                    "value": 6
+                },
+                {
+                    "name": "OUTPUT_INTERVAL",
+                    "value": 600
+                },
+                {
+                    "name": "X",
+                    "value": 258722
+                },
+                {
+                    "name": "Y",
+                    "value": 665028
+                },
+                {
+                    "name": "OPEN_BOUNDARIES",
+                    "value": true
+                },
+                {
+                    "name": "PERMEABLE_AREAS",
+                    "value": "polygons"
+                },
+                {
+                    "name": "ROOF_STORAGE",
+                    "value": 0
+                },
+                {
+                    "name": "TIME_HORIZON",
+                    "value": "{{ year }}"
+                },
+                {
+                    "name": "DISCHARGE",
+                    "value": 0
+                }
+            ]
+        },
+        {
+            "step": "flood-impacts",
+            "dataslots": [
+                {
+                    "name": "MasterMap",
+                    "path": "inputs/mastermap",
+                    "datasets": [
+                        "8fadd93c-a8aa-41d2-8adb-5d615db89b3c"
+                    ]
+                },
+                {
+                    "name": "UPRN",
+                    "path": "inputs/uprn",
+                    "datasets": []
+                },
+                {
+                    "name": "Depth/damage curves",
+                    "path": "inputs/dd-curves",
+                    "datasets": [
+                        "d0701ef5-6f59-43c7-b161-a956b7dd361a"
+                    ]
+                }
+            ],
+            "parameters": [
+                {
+                    "name": "THRESHOLD",
+                    "value": 0.3
+                }
+            ]
+        }
+    ],
+    "metadata": {
+        "description": "{{ output_name }}",
+        "display_name": "{{ output_name }}",
+        "name": "udm-flood-impacts",
+        "publisher": "Fergus McClean",
+        "workflow_version": "{{ workflow_version }}"
+    }
+}
