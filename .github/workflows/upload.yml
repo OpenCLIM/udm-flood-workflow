@@ -11,7 +11,7 @@ jobs:
           python-version: '3.8'
       - name: Install dependencies
         run: pip install requests Jinja2
-      - name: Validate workflow definition
+      - name: Upload to DAFNI
         env:
           DAFNI_SERVICE_ACCOUNT_USERNAME: ${{ secrets.DAFNI_SERVICE_ACCOUNT_USERNAME }}
           DAFNI_SERVICE_ACCOUNT_PASSWORD: ${{ secrets.DAFNI_SERVICE_ACCOUNT_PASSWORD }}
