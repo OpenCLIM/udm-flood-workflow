@@ -12,4 +12,7 @@ jobs:
       - name: Install requests
         run: pip install requests
       - name: Validate workflow definition
+        env:
+          DAFNI_SERVICE_ACCOUNT_USERNAME: ${{ secrets.DAFNI_SERVICE_ACCOUNT_USERNAME }}
+          DAFNI_SERVICE_ACCOUNT_PASSWORD: ${{ secrets.DAFNI_SERVICE_ACCOUNT_PASSWORD }}
         run: python validate.py
