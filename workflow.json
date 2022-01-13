@@ -1,0 +1,119 @@
+{
+    "metadata": {
+        "description": "Combines the UDM and flood impacts workflows",
+        "display_name": "UDM Flood Impacts",
+        "name": "udm-flood-impacts",
+        "publisher": "Newcastle University",
+        "summary": "Combines the UDM and flood impacts workflows"
+    },
+    "api_version": "v1beta1",
+    "kind": "W",
+    "spec": {
+        "steps": [
+            {
+                "kind": "model",
+                "name": "clip",
+                "inputs": [],
+                "model_version": "35ed6a93-183d-4822-80a7-8574c7542bd3"
+            },
+            {
+                "kind": "model",
+                "name": "extract-population",
+                "inputs": [],
+                "model_version": "b692be35-6b03-4b26-86a9-c8b088494265"
+            },
+            {
+                "kind": "model",
+                "name": "move-files",
+                "inputs": [
+                    {
+                        "step": "extract-population"
+                    }
+                ],
+                "model_version": "91d181b3-d618-42f8-8114-3d198a2b209c"
+            },
+            {
+                "kind": "model",
+                "name": "rasterise-zones",
+                "inputs": [
+                    {
+                        "step": "move-files"
+                    }
+                ],
+                "model_version": "77cc2dbb-9665-4744-810c-6f3e60743580"
+            },
+            {
+                "kind": "model",
+                "name": "udm-setup",
+                "inputs": [
+                    {
+                        "step": "clip"
+                    },
+                    {
+                        "step": "rasterise-zones"
+                    }
+                ],
+                "model_version": "c65defd3-bbd7-4858-b7d4-562c0e98943e"
+            },
+            {
+                "kind": "model",
+                "name": "udm",
+                "inputs": [
+                    {
+                        "step": "udm-setup"
+                    }
+                ],
+                "model_version": "f9320e83-dbc8-4701-9058-c50130b1ac6e"
+            },
+            {
+                "kind": "model",
+                "name": "citycat",
+                "inputs": [
+                    {
+                        "step": "udm"
+                    }
+                ],
+                "model_version": "83d3b225-6920-4f6f-994d-fbd17b119984"
+            },
+            {
+                "kind": "model",
+                "name": "flood-impacts",
+                "inputs": [
+                    {
+                        "step": "citycat"
+                    },
+                    {
+                        "step": "udm"
+                    }
+                ],
+                "model_version": "d62d0d2e-ec45-4ae9-a3cb-84dd0d986bc7"
+            },
+            {
+                "kind": "publisher",
+                "name": "publish-flood-impacts",
+                "files": [
+                    {
+                        "step": "citycat",
+                        "paths": [
+                            "outputs/run/max_depth.png",
+                            "outputs/run/max_depth.tif"
+                        ]
+                    },
+                    {
+                        "step": "flood-impacts",
+                        "paths": [
+                            "outputs/buildings.csv",
+                            "inputs/buildings/urban_fabric.gpkg"
+                        ]
+                    }
+                ],
+                "metadata": {
+                    "from_file": {
+                        "path": "outputs/run/metadata.json",
+                        "step": "citycat"
+                    }
+                }
+            }
+        ]
+    }
+}
