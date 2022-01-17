@@ -8,8 +8,8 @@ creating parameter sets (`parameter_set.json`). `login.py` contains a function f
 authentication headers based on environment variables `DAFNI_SERVICE_ACCOUNT_USERNAME` and 
 `DANFI_SERVICE_ACCOUNT_PASSWORD`. `parameter_sets.py` contains a function for generating parameter sets for each of the 
 5 SSPs, based on a given workflow ID, using the jinja2 template. `upload.py` combines these functions to upload the 
-workflow and parameter sets into a new version. It is possible to specify a version message and parent workflow at the 
-beginning of `upload.py`. If any errors occur when uploading parameter sets, the created workflow is deleted.
+workflow and parameter sets onto DAFNI. If any errors occur when uploading parameter sets, the created workflow is 
+deleted.
 
 ## Usage 
 `python upload.py`
