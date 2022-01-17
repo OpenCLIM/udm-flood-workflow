@@ -1,5 +1,8 @@
 name: upload
-on: [push, pull_request]
+on:
+  push:
+    paths-ignore:
+      - README.md
 
 jobs:
   upload:

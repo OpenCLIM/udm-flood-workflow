@@ -13,3 +13,10 @@ deleted.
 
 ## Usage 
 `python upload.py`
+
+## Documentation
+OpenUDM - [README.md](https://github.com/geospatialncl/OpenUDM/blob/master/README.md)
+
+CityCAT model - [citycat-dafni.md](https://github.com/OpenCLIM/citycat-dafni/blob/master/docs/citycat-dafni.md)
+
+Flood impacts model - [flood-impacts-dafni.md](https://github.com/OpenCLIM/flood-impacts-dafni/blob/master/docs/flood-impacts.md)
